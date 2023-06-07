@@ -1,0 +1,3 @@
+displayName = Poganka Project
+author = Roll'eG
+version = 0.1

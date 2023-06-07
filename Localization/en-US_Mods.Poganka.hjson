@@ -1,0 +1,4 @@
+Projectiles: {
+	ShotgunP.DisplayName: Shotgun
+	ShotgunPellet.DisplayName: Shotgun Pellet
+}

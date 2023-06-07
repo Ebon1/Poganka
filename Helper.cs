@@ -43,6 +43,64 @@ namespace Poganka
 
     public static class Helper
     {
+        public static void DrawPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, bool drawBacksides = true)
+        {
+            if (vertices.Length < 6) return;
+            GraphicsDevice device = Main.graphics.GraphicsDevice;
+            Effect effect = Poganka.TrailShader;
+            effect.Parameters["WorldViewProjection"].SetValue(GetMatrix());
+            effect.CurrentTechnique.Passes["Default"].Apply();
+            if (drawBacksides)
+            {
+                short[] indices = new short[vertices.Length * 2];
+                for (int i = 0; i < vertices.Length; i += 3)
+                {
+                    indices[i * 2] = (short)i;
+                    indices[i * 2 + 1] = (short)(i + 1);
+                    indices[i * 2 + 2] = (short)(i + 2);
+
+                    indices[i * 2 + 5] = (short)i;
+                    indices[i * 2 + 4] = (short)(i + 1);
+                    indices[i * 2 + 3] = (short)(i + 2);
+                }
+
+                device.DrawUserIndexedPrimitives(type, vertices, 0, vertices.Length, indices, 0,
+                    GetPrimitiveCount(vertices.Length, type) * 2);
+            }
+            else
+            {
+                device.DrawUserPrimitives(type, vertices, 0, GetPrimitiveCount(vertices.Length, type));
+            }
+        }
+        public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Texture2D texture, bool drawBacksides = true)
+        {
+            GraphicsDevice device = Main.graphics.GraphicsDevice;
+            Effect effect = Poganka.TrailShader;
+            effect.Parameters["WorldViewProjection"].SetValue(GetMatrix());
+            effect.Parameters["tex"].SetValue(texture);
+            effect.CurrentTechnique.Passes["Texture"].Apply();
+            if (drawBacksides)
+            {
+                short[] indices = new short[vertices.Length * 2];
+                for (int i = 0; i < vertices.Length; i += 3)
+                {
+                    indices[i * 2] = (short)i;
+                    indices[i * 2 + 1] = (short)(i + 1);
+                    indices[i * 2 + 2] = (short)(i + 2);
+
+                    indices[i * 2 + 5] = (short)i;
+                    indices[i * 2 + 4] = (short)(i + 1);
+                    indices[i * 2 + 3] = (short)(i + 2);
+                }
+
+                device.DrawUserIndexedPrimitives(type, vertices, 0, vertices.Length, indices, 0,
+                    GetPrimitiveCount(vertices.Length, type) * 2);
+            }
+            else
+            {
+                device.DrawUserPrimitives(type, vertices, 0, GetPrimitiveCount(vertices.Length, type));
+            }
+        }
         public static float ClosestTo(this IEnumerable<float> collection, float target)
         {
             // NB Method will return int.MaxValue for a sequence containing no elements.
@@ -254,9 +312,8 @@ namespace Poganka
 
             return sb.ToString();
         }
-        public static string BuffPlaceholder = "Poganka/Buffs/ExolStun";
-        public static string Empty = "Poganka/Extras/Empty";
-        public static string Placeholder = "Poganka/Extras/Placeholder";
+        public static string Empty = "Poganka/Assets/Tex/Extras/Empty";
+        public static string Placeholder = "Poganka/Assets/Tex/Extras/Placeholder";
         public static class TRay
         {
             public static Vector2 Cast(Vector2 start, Vector2 direction, float length, bool platformCheck = false)
@@ -287,8 +344,8 @@ namespace Poganka
         public static Texture2D GetExtraTexture(string tex, bool altMethod = false)
         {
             if (altMethod)
-                return GetTextureAlt("Extras/" + tex);
-            return GetTexture("Extras/" + tex);
+                return GetTextureAlt("Assets/Tex/Extras/" + tex);
+            return GetTexture("Assets/Tex/Extras/" + tex);
         }
         public static Texture2D GetTexture(string path)
         {

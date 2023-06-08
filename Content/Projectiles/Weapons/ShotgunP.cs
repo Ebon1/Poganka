@@ -42,6 +42,10 @@ namespace Poganka.Content.Projectiles.Weapons
         {
             return false;
         }
+        public override bool? CanDamage()
+        {
+            return false;
+        }
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -54,10 +58,14 @@ namespace Poganka.Content.Projectiles.Weapons
             //float progress = Ease(Utils.GetLerpValue(0f, 15, Projectile.timeLeft));
             if (Projectile.timeLeft == 46)
             {
+                for (int i = 0; i < 15; i++)
+                {
+                    Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 64, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2, Scale: 2).noGravity = true;
+                    Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 306, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2, Scale: 2).noGravity = true;
+                }
                 for (int i = 0; i < 5; i++)
                 {
-                    Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 64, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2).noGravity = true;
-                    Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 306, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2).noGravity = true;
+                    Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), DustID.Smoke, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2);
                 }
                 //player.ChooseAmmo(player.HeldItem).shoot
                 for (int i = 0; i < 4; i++)
@@ -98,7 +106,7 @@ namespace Poganka.Content.Projectiles.Weapons
                 Projectile.ai[1] += 0.1f;
             if (Projectile.timeLeft == 15)
             {
-                Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), 1f), ModContent.Find<ModGore>("Poganka/ShotgunShell").Type);
+                Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(Main.rand.NextFloat(-0.2f, 0.2f), -1f), ModContent.Find<ModGore>("Poganka/ShotgunShell").Type);
             }
 
             Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
@@ -126,13 +134,13 @@ namespace Poganka.Content.Projectiles.Weapons
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
-            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems && player.autoReuseAllWeapons)
+            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)// && player.autoReuseAllWeapons)
             {
                 if (player.whoAmI == Main.myPlayer)
                 {
+                    SoundEngine.PlaySound(SoundID.Item36, player.Center);
                     Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
                     Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0);
-                    proj.rotation = Projectile.rotation;
                     proj.Center = Projectile.Center;
                 }
             }

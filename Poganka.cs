@@ -17,6 +17,7 @@ namespace Poganka
             TrailShader = ModContent.Request<Effect>("Poganka/Assets/Effects/TrailShader").Value;
             //tex
             TextureAssets.Item[ItemID.Shotgun] = ModContent.Request<Texture2D>("Poganka/Content/Items/Weapons/Ranged/Shotgun");
+            TextureAssets.Item[ItemID.EnchantedSword] = ModContent.Request<Texture2D>("Poganka/Content/Items/Weapons/Melee/EnchantedSword");
         }
         public override void Load()
         {

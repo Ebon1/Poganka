@@ -1,4 +1,6 @@
 Projectiles: {
 	ShotgunP.DisplayName: Shotgun
 	ShotgunPellet.DisplayName: Shotgun Pellet
+	EnchantedSwordP.DisplayName: Enchanted Sword P
+	EnchantedSwordP2.DisplayName: Enchanted Sword P2
 }

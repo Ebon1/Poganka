@@ -69,7 +69,7 @@ namespace Poganka.Content.Items.Weapons.Melee
                             }
                         if (target != null && target.active)
                         {
-                            SoundEngine.PlaySound(new SoundStyle("Poganka/Assets/Sounds/sparkle"), player.Center);
+                            SoundEngine.PlaySound(new SoundStyle("Poganka/Assets/Sounds/sparkle"), target.Center + Helper.FromAToB(target.Center, player.Center) * 30);
                             Projectile.NewProjectileDirect(source, target.Center + Helper.FromAToB(target.Center, player.Center) * 30, Helper.FromAToB(player.Center, target.Center), ModContent.ProjectileType<EnchantedSwordP2>(), damage, knockback, player.whoAmI, ai1: Main.rand.Next(new int[] { 1, -1 }));
                         }
                     }

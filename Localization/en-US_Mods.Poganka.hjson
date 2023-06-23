@@ -7,3 +7,20 @@ Projectiles: {
 	IceBladeP2.DisplayName: Ice Blade P2
 	IceBladeP3.DisplayName: Ice Blade P3
 }
+
+Items: {
+	MusicBoxStarfall: {
+		Tooltip: ""
+		DisplayName: Music Box Starfall
+	}
+
+	MusicBoxNeonMoss: {
+		Tooltip: ""
+		DisplayName: Music Box Neon Moss
+	}
+}
+
+Tiles: {
+	MusicBoxNeonMossTile.MapEntry: Music Box Neon Moss Tile
+	MusicBoxStarfallTile.MapEntry: Music Box Starfall Tile
+}

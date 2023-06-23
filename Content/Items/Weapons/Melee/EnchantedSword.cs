@@ -31,6 +31,15 @@ namespace Poganka.Content.Items.Weapons.Melee
         }
         public override bool InstancePerEntity => true;
         int times = 0;
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            if (item.type == ItemID.EnchantedSword)
+            {
+                int index = tooltips.IndexOf(tooltips.FirstOrDefault(x => x.Name == "Tooltip0" && x.Mod == "Terraria"));
+                tooltips.Remove(tooltips[index]);
+                tooltips.Add(new TooltipLine(Mod, "Enchant", "Conjures a magical sword that attacks nearby enemies."));
+            }
+        }
         public override void HoldItem(Item item, Player player)
         {
             if (item.type == ItemID.EnchantedSword)

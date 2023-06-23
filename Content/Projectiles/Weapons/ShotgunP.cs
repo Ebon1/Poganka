@@ -63,12 +63,12 @@ namespace Poganka.Content.Projectiles.Weapons
                     Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 64, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2, Scale: 2).noGravity = true;
                     Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), 306, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2, Scale: 2).noGravity = true;
                 }
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     Dust.NewDustPerfect(Projectile.Center - new Vector2(-20, 4).RotatedBy(Projectile.rotation), DustID.Smoke, Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 2);
                 }
                 //player.ChooseAmmo(player.HeldItem).shoot
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - new Vector2(0, 4).RotatedBy(Projectile.rotation), Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(35)) * 25, ModContent.ProjectileType<ShotgunPellet>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
@@ -118,7 +118,7 @@ namespace Poganka.Content.Projectiles.Weapons
 
             Projectile.rotation = (pos - player.Center).ToRotation() + Projectile.ai[0] * Projectile.spriteDirection;
             player.itemTime = 2;
-            Projectile.Center = pos;
+            Projectile.Center = pos - Vector2.UnitY * 2;
             player.heldProj = Projectile.whoAmI;
             player.itemAnimation = 2;
         }

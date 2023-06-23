@@ -3,4 +3,7 @@ Projectiles: {
 	ShotgunPellet.DisplayName: Shotgun Pellet
 	EnchantedSwordP.DisplayName: Enchanted Sword P
 	EnchantedSwordP2.DisplayName: Enchanted Sword P2
+	IceBladeP1.DisplayName: Ice Blade P1
+	IceBladeP2.DisplayName: Ice Blade P2
+	IceBladeP3.DisplayName: Ice Blade P3
 }

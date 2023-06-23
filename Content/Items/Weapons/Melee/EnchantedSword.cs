@@ -33,11 +33,12 @@ namespace Poganka.Content.Items.Weapons.Melee
         int times = 0;
         public override void HoldItem(Item item, Player player)
         {
-            if (player.itemTime == 2)
-            {
-                player.itemTime = 0;
-                player.itemAnimation = 0;
-            }
+            if (item.type == ItemID.EnchantedSword)
+                if (player.itemTime == 2)
+                {
+                    player.itemTime = 0;
+                    player.itemAnimation = 0;
+                }
         }
         public override bool CanShoot(Item item, Player player)
         {

@@ -36,7 +36,7 @@ namespace Poganka.Content.Items.Weapons.Melee
             {
                 int index = tooltips.IndexOf(tooltips.FirstOrDefault(x => x.Name == "Tooltip0" && x.Mod == "Terraria"));
                 tooltips.Remove(tooltips[index]);
-                tooltips.Add(new TooltipLine(Mod, "Ice", "Ice spikes rise from the ground on each 3rd hit, if the enemy is flying it conjures the spikes from within the enemy itself instead."));
+                tooltips.Add(new TooltipLine(Mod, "Ice", "Ice spikes rise from the ground on every 3rd hit, if the enemy is flying it conjures the spikes from within the enemy itself instead."));
             }
         }
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -47,7 +47,7 @@ namespace Poganka.Content.Items.Weapons.Melee
                 if (attacks == 3)
                 {
                     if (target.collideY)
-                        Projectile.NewProjectile(item.GetSource_OnHit(target), Helper.TRay.Cast(player.Center - Vector2.UnitY * 70, Vector2.UnitY, 1200, true), player.direction * Vector2.UnitX, ModContent.ProjectileType<IceBladeP1>(), item.damage, item.knockBack, player.whoAmI);
+                        Projectile.NewProjectile(item.GetSource_OnHit(target), Helper.TRay.Cast(player.Center, Vector2.UnitY, 1200, true), player.direction * Vector2.UnitX, ModContent.ProjectileType<IceBladeP1>(), item.damage, item.knockBack, player.whoAmI);
                     else
                         for (int i = 0; i < 5; i++)
                         {
